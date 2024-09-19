@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Call-to-Action Button Generator</title>
+  <style>
+    /* Style the form */
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      grid-column: 1 / span 1;
+    }
+
+    input, button {
+      grid-column: 2 / span 1;
+    }
+
+    textarea {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h2>Call-to-Action Button URL Generator</h2>
+
+    <form id="cta-button-form">
+      <label>Button Text:</label>
+      <input type="text" id="cta-text" value="Click Me">
+      
+      <label>Button URL:</label>
+      <input type="url" id="cta-url" value="https://example.com">
+      
+      <label>Text Color:</label>
+      <input type="color" id="cta-text-color" value="#ffffff">
+      
+      <label>Background Color:</label>
+      <input type="color" id="cta-bg-color" value="#e16259">
+      
+      <label>Font Size (px):</label>
+      <input type="number" id="cta-font-size" value="16">
+      
+      <button type="button" id="generate-btn" onclick="generateButtonURL()">Generate Button URL</button>
+    </form>
+
+    <h3>Generated Button Image URL:</h3>
+    <textarea id="cta-link-output" rows="4" cols="50" readonly></textarea>
+    <button id="copy-btn" onclick="copyToClipboard()">Copy to Clipboard</button>
+  </div>
+
+  <script>
+    function generateButtonURL() {
+      const baseURL = 'https://via.placeholder.com/300x100';
+      const text = document.getElementById('cta-text').value;
+      const textColor = document.getElementById('cta-text-color').value.substring(1); // Remove '#'
+      const bgColor = document.getElementById('cta-bg-color').value.substring(1); // Remove '#'
+      const fontSize = document.getElementById('cta-font-size').value;
+      const redirectURL = document.getElementById('cta-url').value;
+
+      // Generate the button image URL
+      const buttonImageURL = `${baseURL}/${bgColor}/${textColor}?text=${encodeURIComponent(text)}&font-size=${fontSize}`;
+
+      // Create the embeddable URL
+      const fullURL = `${buttonImageURL}&redirectURL=${encodeURIComponent(redirectURL)}`;
+
+      // Display the URL
+      document.getElementById('cta-link-output').value = fullURL;
+    }
+
+    function copyToClipboard() {
+      const linkOutput = document.getElementById('cta-link-output');
+      linkOutput.select();
+      document.execCommand('copy');
+      alert('Button image URL copied to clipboard!');
+    }
+  </script>
+</body>
+</html>
