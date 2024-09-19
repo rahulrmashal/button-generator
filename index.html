@@ -26,9 +26,6 @@
       padding: 10px;
       font-size: 16px;
     }
-    button {
-      cursor: pointer;
-    }
     textarea {
       width: 100%;
       height: 100px;
@@ -41,9 +38,9 @@
   <div class="inputs-container">
     <input type="text" id="cta-text" placeholder="Button Text" value="Click Me">
     <input type="url" id="cta-url" placeholder="Button URL" value="https://example.com">
-    <input type="color" id="cta-text-color" value="#ffffff">
-    <input type="color" id="cta-bg-color" value="#e16259">
-    <input type="number" id="cta-font-size" placeholder="Font Size (px)" value="16">
+    <input type="color" id="cta-bg-color" placeholder="Background Color" value="#e16259">
+    <input type="number" id="cta-padding" placeholder="Padding (px)" value="10">
+    <input type="number" id="cta-radius" placeholder="Border Radius (px)" value="5">
     <button onclick="generateButtonURL()">Generate Button URL</button>
   </div>
 
@@ -55,15 +52,17 @@
     function generateButtonURL() {
       const baseURL = 'https://via.placeholder.com/300x100';
       const text = document.getElementById('cta-text').value;
-      const textColor = document.getElementById('cta-text-color').value.substring(1); // Remove '#'
+      const textColor = 'ffffff'; // Fixed text color
       const bgColor = document.getElementById('cta-bg-color').value.substring(1); // Remove '#'
-      const fontSize = document.getElementById('cta-font-size').value;
+      const padding = document.getElementById('cta-padding').value;
+      const radius = document.getElementById('cta-radius').value;
       const redirectURL = document.getElementById('cta-url').value;
 
-      // Generate the button image URL
-      const buttonImageURL = `${baseURL}/${bgColor}/${textColor}?text=${encodeURIComponent(text)}&font-size=${fontSize}`;
+      // Construct the button image URL
+      const imageURL = `${baseURL}/${bgColor}/${textColor}?text=${encodeURIComponent(text)}&font-size=16&padding=${padding}&border-radius=${radius}`;
+      
       // Create the embeddable URL
-      const fullURL = `https://yourusername.github.io/button-generator/?imageURL=${encodeURIComponent(buttonImageURL)}&redirectURL=${encodeURIComponent(redirectURL)}`;
+      const fullURL = `https://yourusername.github.io/button-generator/?imageURL=${encodeURIComponent(imageURL)}&redirectURL=${encodeURIComponent(redirectURL)}`;
 
       // Display the URL
       document.getElementById('cta-link-output').value = fullURL;
