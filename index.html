@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CTA Button Generator for Notion</title>
+  <title>CTA Button Generator</title>
   <style>
     body {
       display: flex;
@@ -50,7 +50,7 @@
 
   <script>
     function generateButtonURL() {
-      const baseURL = 'https://via.placeholder.com/300x100';
+      const baseURL = 'https://rahulrmashal.github.io/button-generator/generated-buttons';
       const text = document.getElementById('cta-text').value;
       const textColor = 'ffffff'; // Fixed text color
       const bgColor = document.getElementById('cta-bg-color').value.substring(1); // Remove '#'
@@ -58,14 +58,12 @@
       const radius = document.getElementById('cta-radius').value;
       const redirectURL = document.getElementById('cta-url').value;
 
-      // Construct the button image URL
-      const imageURL = `${baseURL}/${bgColor}/${textColor}?text=${encodeURIComponent(text)}&font-size=16&padding=${padding}&border-radius=${radius}`;
-      
-      // Create the embeddable URL
-      const fullURL = `https://yourusername.github.io/button-generator/?imageURL=${encodeURIComponent(imageURL)}&redirectURL=${encodeURIComponent(redirectURL)}`;
+      // Create the page name
+      const pageName = text.replace(/\s+/g, '-').toLowerCase();
+      const buttonPageURL = `${baseURL}/${pageName}.html`;
 
       // Display the URL
-      document.getElementById('cta-link-output').value = fullURL;
+      document.getElementById('cta-link-output').value = buttonPageURL;
     }
 
     function copyToClipboard() {
