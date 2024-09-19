@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CTA Button</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+    a {
+      display: inline-block;
+      text-decoration: none;
+    }
+    img {
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <a id="cta-link" href="#" target="_blank">
+    <img id="cta-image" src="" alt="CTA Button">
+  </a>
+
+  <script>
+    // Extract URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const imageURL = urlParams.get('imageURL');
+    const redirectURL = urlParams.get('redirectURL');
+
+    // Set the image src and link href
+    document.getElementById('cta-image').src = imageURL;
+    document.getElementById('cta-link').href = redirectURL;
+  </script>
+</body>
+</html>
