@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Button Generator</title>
+  <title>CTA Button Generator for Notion</title>
   <style>
     body {
       display: flex;
@@ -14,14 +14,6 @@
       margin: 0;
       background-color: #f0f0f0;
     }
-    .button-container {
-      margin: 20px;
-      text-align: center;
-    }
-    .button-container img {
-      border: none;
-      cursor: pointer;
-    }
     .inputs-container {
       display: grid;
       gap: 10px;
@@ -29,53 +21,60 @@
       width: 100%;
       margin-bottom: 20px;
     }
-    input {
+    input, button {
       width: 100%;
       padding: 10px;
       font-size: 16px;
     }
     button {
-      width: 100%;
-      padding: 10px;
-      font-size: 16px;
       cursor: pointer;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
+  <h2>CTA Button URL Generator</h2>
   <div class="inputs-container">
     <input type="text" id="cta-text" placeholder="Button Text" value="Click Me">
     <input type="url" id="cta-url" placeholder="Button URL" value="https://example.com">
     <input type="color" id="cta-text-color" value="#ffffff">
     <input type="color" id="cta-bg-color" value="#e16259">
     <input type="number" id="cta-font-size" placeholder="Font Size (px)" value="16">
-    <button onclick="updateButton()">Update Button</button>
+    <button onclick="generateButtonURL()">Generate Button URL</button>
   </div>
 
-  <div class="button-container">
-    <a id="button-link" href="#" target="_blank">
-      <img id="button-image" src="" alt="Button">
-    </a>
-  </div>
+  <h3>Generated Button URL:</h3>
+  <textarea id="cta-link-output" readonly></textarea>
+  <button onclick="copyToClipboard()">Copy to Clipboard</button>
 
   <script>
-    function updateButton() {
+    function generateButtonURL() {
+      const baseURL = 'https://via.placeholder.com/300x100';
       const text = document.getElementById('cta-text').value;
-      const textColor = document.getElementById('cta-text-color').value.substring(1);
-      const bgColor = document.getElementById('cta-bg-color').value.substring(1);
+      const textColor = document.getElementById('cta-text-color').value.substring(1); // Remove '#'
+      const bgColor = document.getElementById('cta-bg-color').value.substring(1); // Remove '#'
       const fontSize = document.getElementById('cta-font-size').value;
       const redirectURL = document.getElementById('cta-url').value;
 
-      // Generate image URL
-      const imageURL = `https://via.placeholder.com/300x100/${bgColor}/${textColor}?text=${encodeURIComponent(text)}&font-size=${fontSize}`;
+      // Generate the button image URL
+      const buttonImageURL = `${baseURL}/${bgColor}/${textColor}?text=${encodeURIComponent(text)}&font-size=${fontSize}`;
+      // Create the embeddable URL
+      const fullURL = `https://yourusername.github.io/button-generator/?imageURL=${encodeURIComponent(buttonImageURL)}&redirectURL=${encodeURIComponent(redirectURL)}`;
 
-      // Update the button image and link
-      document.getElementById('button-image').src = imageURL;
-      document.getElementById('button-link').href = redirectURL;
+      // Display the URL
+      document.getElementById('cta-link-output').value = fullURL;
     }
 
-    // Initial button setup
-    updateButton();
+    function copyToClipboard() {
+      const linkOutput = document.getElementById('cta-link-output');
+      linkOutput.select();
+      document.execCommand('copy');
+      alert('Button URL copied to clipboard!');
+    }
   </script>
 </body>
 </html>
