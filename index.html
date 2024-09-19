@@ -14,49 +14,44 @@
       margin: 0;
       background-color: #f0f0f0;
     }
-    form {
-      margin-bottom: 20px;
-      display: grid;
-      gap: 10px;
-      max-width: 600px;
-      width: 100%;
-    }
-    input, button {
-      width: 100%;
-      padding: 10px;
-      font-size: 16px;
-    }
-    button {
-      cursor: pointer;
+    .button-container {
+      margin: 20px;
+      text-align: center;
     }
     .button-container img {
       border: none;
       cursor: pointer;
     }
+    .inputs-container {
+      display: grid;
+      gap: 10px;
+      max-width: 400px;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-  <h2>Generate a Call-to-Action Button</h2>
-  <form id="cta-button-form">
-    <label for="cta-text">Button Text:</label>
-    <input type="text" id="cta-text" value="Click Me">
-    
-    <label for="cta-url">Button URL:</label>
-    <input type="url" id="cta-url" value="https://example.com">
-    
-    <label for="cta-text-color">Text Color:</label>
+  <div class="inputs-container">
+    <input type="text" id="cta-text" placeholder="Button Text" value="Click Me">
+    <input type="url" id="cta-url" placeholder="Button URL" value="https://example.com">
     <input type="color" id="cta-text-color" value="#ffffff">
-    
-    <label for="cta-bg-color">Background Color:</label>
     <input type="color" id="cta-bg-color" value="#e16259">
-    
-    <label for="cta-font-size">Font Size (px):</label>
-    <input type="number" id="cta-font-size" value="16">
-    
-    <button type="button" id="generate-btn" onclick="generateButton()">Generate Button</button>
-  </form>
+    <input type="number" id="cta-font-size" placeholder="Font Size (px)" value="16">
+    <button onclick="updateButton()">Update Button</button>
+  </div>
 
-  <h3>Generated Button:</h3>
   <div class="button-container">
     <a id="button-link" href="#" target="_blank">
       <img id="button-image" src="" alt="Button">
@@ -64,7 +59,7 @@
   </div>
 
   <script>
-    function generateButton() {
+    function updateButton() {
       const text = document.getElementById('cta-text').value;
       const textColor = document.getElementById('cta-text-color').value.substring(1);
       const bgColor = document.getElementById('cta-bg-color').value.substring(1);
@@ -74,10 +69,13 @@
       // Generate image URL
       const imageURL = `https://via.placeholder.com/300x100/${bgColor}/${textColor}?text=${encodeURIComponent(text)}&font-size=${fontSize}`;
 
-      // Set image source and link
+      // Update the button image and link
       document.getElementById('button-image').src = imageURL;
       document.getElementById('button-link').href = redirectURL;
     }
+
+    // Initial button setup
+    updateButton();
   </script>
 </body>
 </html>
